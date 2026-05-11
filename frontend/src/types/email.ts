@@ -22,8 +22,8 @@ export type Attachment = {
   file_name: string;
   file_path: string;
   mime_type: string;
-  size: number; 
-}
+  size: number;
+};
 
 export type EmailDetailProps = {
   email: Email;
@@ -50,14 +50,14 @@ export type SearchSectionProps = {
   onResetMatch: () => void;
   newSkill: string;
   setNewSkill: (skill: string) => void;
-  isAdding: boolean,
-  setIsAdding: Dispatch<SetStateAction<boolean>>,
+  isAdding: boolean;
+  setIsAdding: Dispatch<SetStateAction<boolean>>;
   matchedEmails: Email[] | null;
   activeTab: MailCategory;
   setQuery: (query: string) => void;
   onSearch: () => void;
   onResetSearch: () => void;
-}
+};
 
 export type SkillsTagSectionProps = {
   skills: string[];
@@ -75,9 +75,8 @@ export type SkillsTagSectionProps = {
 export type SearchedEmails = {
   engineer?: Email[];
   job?: Email[];
-}
+};
 
 export type EmailSyncStatus = {
   last_updated_at: string;
 };
-

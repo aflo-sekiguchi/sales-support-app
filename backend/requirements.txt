@@ -39,6 +39,9 @@ bleach
 # Gemini
 google-genai
 
+# タイムゾーン
+pytz
+
 # 本番追加
 # 本番用サーバー
 # gunicorn # 本番環境で FastAPI を安定稼働させるWSGI/ASGIサーバー。Uvicorn workerと組み合わせてマルチプロセス運用が可能。

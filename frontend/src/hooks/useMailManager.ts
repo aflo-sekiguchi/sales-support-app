@@ -1,21 +1,33 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import type { Email, MailCategory, SearchedEmails, EmailSyncStatus, Attachment } from "../types";
+import type {
+  Email,
+  MailCategory,
+  SearchedEmails,
+  EmailSyncStatus,
+  Attachment,
+} from "../types";
 import isEqual from "lodash/isEqual";
 
 export const useMailManager = () => {
   const [activeTab, setActiveTab] = useState<MailCategory>("engineer");
   const [allEmails, setAllEmails] = useState<Email[] | null>(null);
-  const [selectedEngineerEmail, setSelectedEngineerEmail] = useState<Email | null>(null);
+  const [selectedEngineerEmail, setSelectedEngineerEmail] =
+    useState<Email | null>(null);
   const [selectedJobEmail, setSelectedJobEmail] = useState<Email | null>(null);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [matchedEmails, setMatchedEmails] = useState<Email[] | null>(null);
   const [pages, setPages] = useState({ engineer: 1, job: 1 });
-  const [scrollPositions, setScrollPositions] = useState({ engineer: 0, job: 0 });
+  const [scrollPositions, setScrollPositions] = useState({
+    engineer: 0,
+    job: 0,
+  });
   const [newSkill, setNewSkill] = useState<string>("");
-  const [isAdding, setIsAdding] = useState(false);  
+  const [isAdding, setIsAdding] = useState(false);
   const [query, setQuery] = useState("");
-  const [searchedEmails, setSearchedEmails] = useState<SearchedEmails | null>(null);
+  const [searchedEmails, setSearchedEmails] = useState<SearchedEmails | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [emailSyncStatus, setEmailSyncStatus] = useState<EmailSyncStatus>();
@@ -31,8 +43,12 @@ export const useMailManager = () => {
   }, [emailSyncStatus]);
 
   // --- メール分類 ---
-  const engineerEmails = searchedEmails?.engineer ?? (allEmails?.filter((e) => e.category === "engineer") ?? []);
-  const jobEmails = searchedEmails?.job ?? (allEmails?.filter((e) => e.category === "job") ?? []);
+  const engineerEmails =
+    searchedEmails?.engineer ??
+    allEmails?.filter((e) => e.category === "engineer") ??
+    [];
+  const jobEmails =
+    searchedEmails?.job ?? allEmails?.filter((e) => e.category === "job") ?? [];
 
   // --- スクロール・ページ管理 ---
   const onPageChange = (type: MailCategory, page: number) => {
@@ -45,14 +61,16 @@ export const useMailManager = () => {
   // --- スキル操作 ---
   const onToggleSkill = (skill: string) => {
     setSelectedSkills((prev) =>
-      prev.includes(skill) ? prev.filter((s) => s !== skill) : [...prev, skill]
+      prev.includes(skill) ? prev.filter((s) => s !== skill) : [...prev, skill],
     );
   };
 
   // --- マッチングAPI ---
   const onMatchEmails = async () => {
-    const selectedLeftEmail = activeTab === "engineer" ? selectedEngineerEmail : selectedJobEmail;
-    const setSelectedRightEmail = activeTab === "engineer" ? setSelectedJobEmail : setSelectedEngineerEmail;
+    const selectedLeftEmail =
+      activeTab === "engineer" ? selectedEngineerEmail : selectedJobEmail;
+    const setSelectedRightEmail =
+      activeTab === "engineer" ? setSelectedJobEmail : setSelectedEngineerEmail;
 
     if (!selectedLeftEmail) {
       alert("マッチング元メールが選択されていません。");
@@ -78,9 +96,10 @@ export const useMailManager = () => {
     setMatchedEmails(null);
   };
 
-  // --- マッチングリスト切り替え時の初期化--- 
+  // --- マッチングリスト切り替え時の初期化---
   useEffect(() => {
-    const setSelectedRightEmail = activeTab === "engineer" ? setSelectedJobEmail : setSelectedEngineerEmail;
+    const setSelectedRightEmail =
+      activeTab === "engineer" ? setSelectedJobEmail : setSelectedEngineerEmail;
     const rightEmailsCategory = activeTab === "engineer" ? "job" : "engineer";
     setSelectedRightEmail(null);
     onPageChange(rightEmailsCategory, 1);
@@ -88,7 +107,10 @@ export const useMailManager = () => {
   }, [matchedEmails]);
 
   // --- 検索API ---
-  const searchEmails = async (query: string, category: MailCategory): Promise<Email[]> => {
+  const searchEmails = async (
+    query: string,
+    category: MailCategory,
+  ): Promise<Email[]> => {
     try {
       const response = await axios.post("http://localhost:8000/emails/search", {
         query, // ← JSON.stringify不要
@@ -99,7 +121,7 @@ export const useMailManager = () => {
     } catch (error: any) {
       console.error("Failed to fetch emails:", error);
       throw new Error(
-        error.response?.data?.detail || "Failed to fetch emails from API"
+        error.response?.data?.detail || "Failed to fetch emails from API",
       );
     }
   };
@@ -110,7 +132,7 @@ export const useMailManager = () => {
     setSearchError(null);
     try {
       const data = await searchEmails(query, activeTab);
-      setSearchedEmails((prev) => ({...prev ?? {}, [activeTab]: data}));
+      setSearchedEmails((prev) => ({ ...(prev ?? {}), [activeTab]: data }));
     } catch (err: any) {
       setSearchError(err.message);
     } finally {
@@ -120,21 +142,24 @@ export const useMailManager = () => {
 
   // 検索結果リセット関数
   const onResetSearch = () => {
-    setSearchedEmails((prev) => ({...prev, [activeTab]: null}));
-  }
+    setSearchedEmails((prev) => ({ ...prev, [activeTab]: null }));
+  };
 
   // 選択されたメールを初期化する
   useEffect(() => {
-    const setSelectedLeftEmail = activeTab === "engineer" ? setSelectedEngineerEmail : setSelectedJobEmail;
+    const setSelectedLeftEmail =
+      activeTab === "engineer" ? setSelectedEngineerEmail : setSelectedJobEmail;
     setSelectedLeftEmail(null);
     onPageChange(activeTab, 1);
   }, [searchedEmails]);
 
   // --- メールリスト同期関数 ---
-  const onSyncEmails =  async () => {
+  const onSyncEmails = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/emails/sync-emails");
-      return
+      const response = await axios.post(
+        "http://localhost:8000/emails/sync-emails",
+      );
+      return;
     } catch (error: any) {
       // エラーハンドリング
       if (axios.isAxiosError(error)) {
@@ -144,15 +169,16 @@ export const useMailManager = () => {
       }
       throw error;
     }
-  }
+  };
 
   // --- メールリストの更新有無ステータスを確認する関数 ---
   const fetchStatus = async () => {
     try {
-      const response = await axios.post<EmailSyncStatus>("http://localhost:8000/emails/email-sync-status");
-        setEmailSyncStatus((prev) => (
-          isEqual(prev, response.data) ? prev : response.data
-        )
+      const response = await axios.post<EmailSyncStatus>(
+        "http://localhost:8000/emails/email-sync-status",
+      );
+      setEmailSyncStatus((prev) =>
+        isEqual(prev, response.data) ? prev : response.data,
       );
     } catch (error) {
       console.error("Failed to fetch email sync status:", error);
@@ -184,7 +210,7 @@ export const useMailManager = () => {
         },
         {
           responseType: "blob", // これが重要
-        }
+        },
       );
 
       const blob = new Blob([response.data], { type: attachment.mime_type });
@@ -199,7 +225,7 @@ export const useMailManager = () => {
     } catch (error: any) {
       console.error("Failed to download email attchment:", error);
     }
-  }
+  };
 
   return {
     activeTab,

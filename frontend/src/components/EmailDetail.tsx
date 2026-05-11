@@ -1,7 +1,11 @@
 import type { EmailDetailProps } from "../types";
 import { Badge } from "react-bootstrap";
 
-const EmailDetail: React.FC<EmailDetailProps> = ({ email, onBack, onDownloadFile }) => {
+const EmailDetail: React.FC<EmailDetailProps> = ({
+  email,
+  onBack,
+  onDownloadFile,
+}) => {
   return (
     <>
       <div>
@@ -9,13 +13,15 @@ const EmailDetail: React.FC<EmailDetailProps> = ({ email, onBack, onDownloadFile
           ← 戻る
         </button>
       </div>
-      <h5 className="border-bottom pb-1 mb-1">{email.subject || "(件名なし)"}</h5>
+      <h5 className="border-bottom pb-1 mb-1">
+        {email.subject || "(件名なし)"}
+      </h5>
       <div className="mb-1">
         <strong>From:</strong> {email.from_address}
         <br />
         <small>{new Date(email.received_at).toLocaleString()}</small>
       </div>
-      
+
       {email.attachments.length > 0 && (
         <div className="mb-2 d-flex flex-wrap gap-2">
           {email.attachments.map((attachment) => (
@@ -28,10 +34,12 @@ const EmailDetail: React.FC<EmailDetailProps> = ({ email, onBack, onDownloadFile
             </Badge>
           ))}
         </div>
-        )
-      }
-      
-      <div className="border p-2 bg-light mail-detail" dangerouslySetInnerHTML={{ __html: email.body ?? "" }}>
+      )}
+
+      <div
+        className="border p-2 bg-light mail-detail"
+        dangerouslySetInnerHTML={{ __html: email.body ?? "" }}
+      >
         {/* {email.body || "(本文なし)"} */}
       </div>
     </>

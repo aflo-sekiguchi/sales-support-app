@@ -7,16 +7,28 @@ import { useMailManager } from "./hooks/useMailManager";
 
 const App: React.FC = () => {
   const {
-    activeTab, setActiveTab,
-    engineerEmails, jobEmails,
-    selectedEngineerEmail, setSelectedEngineerEmail,
-    selectedJobEmail, setSelectedJobEmail,
-    selectedSkills, setSelectedSkills, onToggleSkill,
-    matchedEmails, onMatchEmails, onResetMatchedEmails,
-    pages, onPageChange,
-    scrollPositions, onScrollChange,
-    newSkill, setNewSkill,
-    isAdding, setIsAdding,
+    activeTab,
+    setActiveTab,
+    engineerEmails,
+    jobEmails,
+    selectedEngineerEmail,
+    setSelectedEngineerEmail,
+    selectedJobEmail,
+    setSelectedJobEmail,
+    selectedSkills,
+    setSelectedSkills,
+    onToggleSkill,
+    matchedEmails,
+    onMatchEmails,
+    onResetMatchedEmails,
+    pages,
+    onPageChange,
+    scrollPositions,
+    onScrollChange,
+    newSkill,
+    setNewSkill,
+    isAdding,
+    setIsAdding,
     setQuery,
     onSearch,
     onResetSearch,
@@ -27,12 +39,21 @@ const App: React.FC = () => {
 
   useEmailSyncStatus();
   const isEngineerLeft = activeTab === "engineer";
-  const selectedLeftEmail = isEngineerLeft ? selectedEngineerEmail : selectedJobEmail;
-  const selectedRightEmail = isEngineerLeft ? selectedJobEmail : selectedEngineerEmail;
+  const selectedLeftEmail = isEngineerLeft
+    ? selectedEngineerEmail
+    : selectedJobEmail;
+  const selectedRightEmail = isEngineerLeft
+    ? selectedJobEmail
+    : selectedEngineerEmail;
 
   return (
     <div>
-      <Header activeTab={activeTab} onTabChange={setActiveTab} onResetMatch={onResetMatchedEmails} onSyncEmails={onSyncEmails}/>
+      <Header
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onResetMatch={onResetMatchedEmails}
+        onSyncEmails={onSyncEmails}
+      />
       <div className="d-flex w-100 flex-fill">
         <SearchSection
           leftSkills={selectedLeftEmail?.skills || []}
@@ -46,23 +67,31 @@ const App: React.FC = () => {
           isAdding={isAdding}
           setIsAdding={setIsAdding}
           matchedEmails={matchedEmails}
-          activeTab={activeTab} 
+          activeTab={activeTab}
           setQuery={setQuery}
           onSearch={onSearch}
           onResetSearch={onResetSearch}
         />
 
-        {(
-          isEngineerLeft ? (["engineer", "job"] as const) : (["job", "engineer"] as const)
+        {(isEngineerLeft
+          ? (["engineer", "job"] as const)
+          : (["job", "engineer"] as const)
         ).map((type, index) => {
           const isEngineer = type === "engineer";
           const title = isEngineer ? "人材一覧" : "求人一覧";
           const emails = isEngineer ? engineerEmails : jobEmails;
-          const selectedEmail = isEngineer ? selectedEngineerEmail : selectedJobEmail;
-          const setSelectedEmail = isEngineer ? setSelectedEngineerEmail : setSelectedJobEmail;
-          const scrollPos = isEngineer ? scrollPositions.engineer : scrollPositions.job;
+          const selectedEmail = isEngineer
+            ? selectedEngineerEmail
+            : selectedJobEmail;
+          const setSelectedEmail = isEngineer
+            ? setSelectedEngineerEmail
+            : setSelectedJobEmail;
+          const scrollPos = isEngineer
+            ? scrollPositions.engineer
+            : scrollPositions.job;
           const currentPage = isEngineer ? pages.engineer : pages.job;
-          const onPageChangeForType = (page: number) => onPageChange(type, page);
+          const onPageChangeForType = (page: number) =>
+            onPageChange(type, page);
 
           return (
             <div key={type} className="d-flex flex-fill flex-column p-3 w-50">
@@ -72,8 +101,8 @@ const App: React.FC = () => {
                   onBack={() => {
                     setSelectedEmail(null);
                     if (index === 0) {
-                      setSelectedSkills([]);  // 選択スキルをリセット
-                      setNewSkill(""); 
+                      setSelectedSkills([]); // 選択スキルをリセット
+                      setNewSkill("");
                       setIsAdding(false);
                     }
                   }}
@@ -82,7 +111,7 @@ const App: React.FC = () => {
               ) : (
                 <EmailList
                   title={title}
-                  emails={(index === 1 && matchedEmails ? matchedEmails : emails)}
+                  emails={index === 1 && matchedEmails ? matchedEmails : emails}
                   onEmailClick={(email) => {
                     setSelectedEmail(email); // 選択されたemailをセット
                     if (index === 0) setSelectedSkills(email.skills || []); // メールクリック時、選択スキルをセット

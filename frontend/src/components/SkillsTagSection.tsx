@@ -12,9 +12,9 @@ const SkillsTagSection: React.FC<SkillsTagSectionProps> = ({
   onAddSkill,
   onToggleIsAdding,
   onChangeSkillInput,
-  title
+  title,
 }) => {
-  return(
+  return (
     <div className="d-flex mb-3 flex-column gap-2">
       <Form.Label className="skill-label">{title}スキル</Form.Label>
       {skills.length > 0 && (
@@ -27,7 +27,11 @@ const SkillsTagSection: React.FC<SkillsTagSectionProps> = ({
                   key={skill}
                   bg={isActive ? "primary" : "secondary"}
                   className={`search-tag ${editable ? "search-tag-left" : ""}`}
-                  onClick={editable && onToggleSkill? () => onToggleSkill(skill) : undefined}
+                  onClick={
+                    editable && onToggleSkill
+                      ? () => onToggleSkill(skill)
+                      : undefined
+                  }
                 >
                   {skill}
                 </Badge>
@@ -54,7 +58,7 @@ const SkillsTagSection: React.FC<SkillsTagSectionProps> = ({
               size="sm"
               value={newSkill}
               onChange={(e) => onChangeSkillInput?.(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && onAddSkill?.() }
+              onKeyDown={(e) => e.key === "Enter" && onAddSkill?.()}
               autoFocus
               style={{ width: "100px" }}
             />
@@ -62,6 +66,6 @@ const SkillsTagSection: React.FC<SkillsTagSectionProps> = ({
         </>
       )}
     </div>
-  )
-} 
+  );
+};
 export default SkillsTagSection;

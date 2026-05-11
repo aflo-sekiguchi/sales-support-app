@@ -25,8 +25,14 @@ const SearchSection: React.FC<SearchSectionProps> = ({
     onAddSkill,
     onToggleIsAdding,
     onChangeSkillInput,
-  } = useSkillsManager(leftSkills, onToggleSkill, newSkill, setNewSkill, setIsAdding);
-  
+  } = useSkillsManager(
+    leftSkills,
+    onToggleSkill,
+    newSkill,
+    setNewSkill,
+    setIsAdding,
+  );
+
   const leftSkillTitle = activeTab === "engineer" ? "人材" : "求人";
   const rightSkillTitle = activeTab === "engineer" ? "求人" : "人材";
 
@@ -37,7 +43,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({
           <h5>検索</h5>
           <Form.Group className="mb-3">
             <Form.Label>キーワード</Form.Label>
-            <Form.Control 
+            <Form.Control
               type="text"
               placeholder="検索ワードを入力"
               onChange={(e) => setQuery(e.target.value)}
@@ -45,22 +51,14 @@ const SearchSection: React.FC<SearchSectionProps> = ({
           </Form.Group>
 
           <div className="d-flex gap-2">
-            <Button
-              variant="primary"
-              className="w-100"
-              onClick={onSearch}
-            >
+            <Button variant="primary" className="w-100" onClick={onSearch}>
               検索
             </Button>
 
-            <Button
-              variant="primary"
-              className="w-100"
-              onClick={onResetSearch}
-            >
+            <Button variant="primary" className="w-100" onClick={onResetSearch}>
               リセット
             </Button>
-          </div>          
+          </div>
         </div>
 
         <div className="p-3">

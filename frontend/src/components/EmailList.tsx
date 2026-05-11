@@ -12,9 +12,10 @@ const EmailList: React.FC<EmailListProps> = ({
 }) => {
   const emailsPerPage = 50;
 
-  const totalPages = emails?.length === 0 ? 1 : Math.ceil((emails?.length ?? 1) / emailsPerPage);
+  const totalPages =
+    emails?.length === 0 ? 1 : Math.ceil((emails?.length ?? 1) / emailsPerPage);
   const startIndex = (currentPage - 1) * emailsPerPage;
-  const endIndex = Math.min(startIndex + emailsPerPage, (emails?.length ?? 0));
+  const endIndex = Math.min(startIndex + emailsPerPage, emails?.length ?? 0);
   const currentEmails = emails?.slice(startIndex, endIndex);
 
   const scrollRef = useRef<HTMLUListElement | null>(null);
