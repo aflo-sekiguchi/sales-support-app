@@ -8,6 +8,7 @@ from ..schemas.email import SearchRequest
 def split_query(raw: str):
     return raw.replace("　", " ").split()
 
+
 def build_search_filters(words):
     return [
         or_(
@@ -29,10 +30,7 @@ def search_emails_service(req: SearchRequest, db: Session):
 
     return (
         db.query(Email)
-        .filter(
-            Email.category == req.category,
-            and_(*filters)
-        )
+        .filter(Email.category == req.category, and_(*filters))
         .order_by(Email.received_at.desc())
         .all()
     )
