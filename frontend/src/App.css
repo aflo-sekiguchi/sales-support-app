@@ -1,0 +1,60 @@
+
+.mail-hover {
+  cursor: pointer;
+}
+
+.mail-hover:hover {
+  background-color: #ebebeb;
+}
+
+.mail-detail {
+  white-space: pre-wrap;   /* 改行文字を保持して表示 */
+  word-break: break-word;  /* 長い単語を折り返し */
+  overflow-wrap: anywhere; /* はみ出す文字列も途中で改行可 */
+  max-height: calc(100vh - 320px);     /* 最大高さを制限 */
+  overflow-y: auto;     /* 縦スクロールを有効化 */
+}
+
+.mail-list {
+  max-height: calc(100vh - 210px);
+}
+
+.search-tag {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  height: auto;                /* 高さを固定しない */
+  line-height: normal;         /* 行の高さをテキストに合わせる */
+}
+
+.attachment {
+  cursor: pointer;
+}
+
+.attachment:hover {
+  text-decoration: underline;
+}
+
+.search-tag-left {
+  cursor: pointer;
+}
+
+.search-containner {
+  /* height: calc(100vh - 75px); */
+  min-width: 250px;
+  max-width: 20vh;
+}
+
+.skill-contailer {
+  max-width: 100%;
+}
+
+.skill-label {
+  margin-bottom: 0 !important;
+}
+
+.d-flex.w-100 {
+  min-height: calc(100vh - 75px);
+}

@@ -1,0 +1,82 @@
+# =====================================
+# Logs
+# =====================================
+
+logs
+*.log
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =====================================
+# Frontend (React / Vite)
+# =====================================
+
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Vite
+vite.svg
+
+# Local env
+*.local
+
+# =====================================
+# Backend (FastAPI / Python)
+# =====================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Pytest / type checker / linter cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Upload files
+backend/uploads/
+
+# Celery
+celerybeat-schedule
+
+# =====================================
+# Environment variables
+# =====================================
+
+.env
+.env.*
+!.env.example
+
+# =====================================
+# IDE / OS
+# =====================================
+
+.vscode/*
+!.vscode/extensions.json
+
+.idea/
+
+.DS_Store
+Thumbs.db
+
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =====================================
+# Docker
+# =====================================
+
+docker-compose.override.yml

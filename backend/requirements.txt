@@ -1,0 +1,44 @@
+# Web フレームワーク / API 関連
+fastapi # PythonのモダンなWebフレームワーク。
+uvicorn[standard] # ASGIサーバー。FastAPIアプリを実際に起動するために使用。
+python-multipart # FastAPIでのファイルアップロード（Excelスキルシートや添付メールファイル）を処理するため。
+python-dotenv # .env ファイルから環境変数を読み込み、DB接続情報やOAuthクライアントIDなどを設定するため。
+
+# データベース / ORM 関連
+sqlalchemy # PythonのORM。PostgreSQLに接続し、メール解析結果やマッチング結果をDBに保存する。
+psycopg2-binary # PostgreSQL用のDBドライバ。SQLAlchemyからPostgreSQLに接続する際に使用。
+pydantic # FastAPIのリクエスト/レスポンスモデルを定義する際に利用。データバリデーションや型チェックに必須。
+alembic # DBマイグレーション管理ツール。テーブル構造やスキーマ変更をコードで管理するため。
+
+# Excel
+pandas # Excelスキルシートや求人情報CSV/Excelを読み込み・加工・解析するため。
+openpyxl # Excelファイルの読み書き。pandasと連携してExcelからスキルシートを読み込む。
+
+# メール解析関連
+mail-parser # メール本文や添付ファイルを解析して、求人内容・候補者情報を抽出する。
+imapclient # IMAPでメールサーバーにアクセスし、メールを取得する。同期的に扱いやすい。
+aiosmtplib # SMTPでメール送信するための非同期クライアント。通知メールなどで利用可能。
+
+# マッチング・検索関連
+scikit-learn # 求人とスキルシートやメール内容のマッチング計算に使用（TF-IDFベースの類似度計算など）。後々 sentence-transformers などに拡張可能。
+
+# 認証 / OAuth / API 連携
+python-jose[cryptography] # JWT発行・検証。FastAPIでのユーザー認証やAPIアクセス制御に使用。
+msal # Microsoft Graph API に接続するための OAuth 2 クライアント。Office 365メールやカレンダーと連携。
+google-auth # Gmail APIやGoogle Workspaceへの認証に使用。
+google-api-python-client # GmailやGoogle Workspace APIを呼び出すためのライブラリ。
+
+# 非同期ジョブ / バッチ処理
+celery[redis] # メール解析・マッチングなど重い処理を非同期で実行するタスクキューライブラリ。
+redis # Celeryのブローカーおよび結果保存用。キューとしてタスク情報を保持。
+
+# HTML解析（メール本文のクリーニングで利用）
+beautifulsoup4
+bleach
+
+# Gemini
+google-genai
+
+# 本番追加
+# 本番用サーバー
+# gunicorn # 本番環境で FastAPI を安定稼働させるWSGI/ASGIサーバー。Uvicorn workerと組み合わせてマルチプロセス運用が可能。

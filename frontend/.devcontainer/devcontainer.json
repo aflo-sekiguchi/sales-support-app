@@ -1,0 +1,23 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Matching App Frontend",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "frontend",
+  "workspaceFolder": "/usr/src/app",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "typescript.tsdk": "/usr/local/lib/node_modules/typescript/lib"
+      }
+    }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
