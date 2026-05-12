@@ -11,19 +11,21 @@ from .schemas.email import EmailResponseGemini
 from redis import Redis
 from bs4 import BeautifulSoup
 from google.genai import Client
+from app.core.config import settings
 import bleach
 import textwrap
 import os
 import logging
 
-host = os.getenv("REDIS_HOST", "redis")
-redis_port = os.getenv("REDIS_PORT", 6379)
+
+host = settings.REDIS_HOST
+redis_port = settings.REDIS_PORT
 redis = Redis(host=host, port=redis_port, db=0)
-IMAP_HOST = os.getenv("IMAP_HOST")
-IMAP_PORT = os.getenv("IMAP_PORT")
-IMAP_USER = os.getenv("IMAP_USER")
-IMAP_PASSWORD = os.getenv("IMAP_PASSWORD")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+IMAP_HOST = settings.IMAP_HOST
+IMAP_PORT = settings.IMAP_PORT
+IMAP_USER = settings.IMAP_USER
+IMAP_PASSWORD = settings.IMAP_PASSWORD
+GEMINI_API_KEY = settings.GEMINI_API_KEY
 
 logger = logging.getLogger(__name__)
 

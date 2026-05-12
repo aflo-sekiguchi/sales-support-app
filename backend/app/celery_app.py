@@ -1,10 +1,10 @@
 from celery import Celery
 from celery.schedules import crontab
-import os
+from app.core.config import settings
 
 # 環境変数からRedis URLやBroker URLを取得する場合も多い
-broker_url = os.getenv("CELERY_BROKER_URL", "redis://redis:6379/1")
-backend_url = os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/2")
+broker_url = settings.CELERY_BROKER_URL
+backend_url = settings.CELERY_RESULT_BACKEND
 
 celery_app = Celery(
     "worker",

@@ -1,4 +1,3 @@
-import os
 from fastapi import APIRouter, Depends
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
@@ -17,7 +16,7 @@ from ..services.email_search_service import search_emails_service
 from ..services.match_service import match_emails_service
 from ..models.email import Email, EmailSyncStatus
 from ..celery_app import celery_app
-from celery.result import AsyncResult  # ← これを追加
+from celery.result import AsyncResult 
 
 
 router = APIRouter(prefix="/emails", tags=["Emails"])
@@ -54,12 +53,6 @@ def get_result(task_id: str):
 def get_status(db: Session = Depends(get_db)):
     last_updated_at = db.scalar(select(EmailSyncStatus.last_updated_at))
     return {"last_updated_at": last_updated_at}
-
-
-@router.get("/test")
-def get_test(db: Session = Depends(get_db)):
-    test = db.query(Email).get(27344)
-    return test.attachments
 
 
 @router.post("/files")
