@@ -7,32 +7,17 @@ from sqlalchemy import (
     Enum,
     JSON,
     Float,
-    ForeignKey,
 )
 from sqlalchemy.orm import relationship
 from app.database import Base
-import enum
 from datetime import datetime, timezone
-import pytz
-
-class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    password = Column(String, nullable=False)
-
-
-jst = pytz.timezone("Asia/Tokyo")
-
+import enum
 
 # 種別フラグ用のEnum
 class EmailCategory(str, enum.Enum):
     job = "job"  # 求人
     engineer = "engineer"  # エンジニア紹介
     unknown = "unknown"  # 未分類
-
 
 class Email(Base):
     __tablename__ = "emails"
@@ -57,28 +42,3 @@ class Email(Base):
     attachments = relationship(
         "EmailAttachment", back_populates="email", cascade="all, delete-orphan"
     )
-
-
-class EmailAttachment(Base):
-    __tablename__ = "email_attachments"
-    id = Column(Integer, primary_key=True, index=True)
-    email_id = Column(
-        Integer, ForeignKey("emails.id", ondelete="CASCADE"), nullable=False
-    )
-
-    file_name = Column(String(500), nullable=False)
-    file_path = Column(String(1000), nullable=False)
-    mime_type = Column(String(255), nullable=False)
-    size = Column(Integer, nullable=False)  # byte
-
-    # Email との逆参照
-    email = relationship("Email", back_populates="attachments")
-
-
-class EmailSyncStatus(Base):
-    __tablename__ = "email_sync_status"
-    id = Column(Integer, primary_key=True, index=True)
-    last_updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    added = Column(Integer, nullable=True)
-    deleted = Column(Integer, nullable=True)
-    remaining = Column(Integer, nullable=True)

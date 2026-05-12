@@ -14,7 +14,7 @@ from ..schemas.email import (
 )
 from ..services.email_search_service import search_emails_service
 from ..services.match_service import match_emails_service
-from ..models.email import Email, EmailSyncStatus
+from app.models import Email, EmailSyncStatus
 from ..celery_app import celery_app
 from celery.result import AsyncResult 
 

@@ -2,7 +2,7 @@ from .celery_app import celery_app
 import imaplib
 from app.database import SessionLocal
 from email import message_from_bytes
-from .models.email import Email, EmailSyncStatus, EmailAttachment
+from app.models import Email, EmailSyncStatus, EmailAttachment
 from email.header import decode_header
 from email.utils import parsedate_to_datetime
 from sqlalchemy import select, delete

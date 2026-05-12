@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import or_, and_, func
 
-from ..models.email import Email
+from app.models import Email
 from ..schemas.email import SearchRequest
 
 

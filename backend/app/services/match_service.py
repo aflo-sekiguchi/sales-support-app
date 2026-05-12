@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from typing import List
 
-from ..models.email import Email
+from app.models import Email
 from ..schemas.email import MatchRequest
 
 
