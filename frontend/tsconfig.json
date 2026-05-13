@@ -2,9 +2,9 @@
   "files": [],
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@types/*": ["types/*"]
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["src"]
