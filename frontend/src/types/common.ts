@@ -5,4 +5,5 @@ export type HeaderProps = {
   onTabChange: (tab: MailCategory) => void;
   onResetMatch: () => void;
   onSyncEmails: () => void;
+  handleLogout: () => void;
 };

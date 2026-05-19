@@ -156,9 +156,7 @@ export const useMailManager = () => {
   // --- メールリスト同期関数 ---
   const onSyncEmails = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/emails/sync-emails",
-      );
+      await axios.post("http://localhost:8000/emails/sync-emails");
       return;
     } catch (error: any) {
       // エラーハンドリング

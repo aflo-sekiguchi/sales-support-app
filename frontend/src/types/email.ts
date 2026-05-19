@@ -78,5 +78,5 @@ export type SearchedEmails = {
 };
 
 export type EmailSyncStatus = {
-  last_updated_at: string;
+  last_updated_at: string | null;
 };
