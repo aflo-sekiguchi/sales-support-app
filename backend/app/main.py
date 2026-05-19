@@ -6,8 +6,8 @@ from app.core.config import settings
 
 # ルーター読み込み（例：routers ディレクトリ）
 from app.routers import (
+    auth,
     emails,
-    # 他に存在する router があればここに追加
 )
 
 app = FastAPI()
@@ -27,3 +27,4 @@ app.add_middleware(
 # ルーター登録
 # ===========================
 app.include_router(emails.router)
+app.include_router(auth.router)

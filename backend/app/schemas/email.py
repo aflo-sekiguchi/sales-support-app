@@ -59,7 +59,7 @@ class MatchRequest(BaseModel):
 
 
 class EmailSyncStatusResponse(BaseModel):
-    last_updated_at: datetime
+    last_updated_at: datetime | None = None
 
 
 class DownloadFileRequest(BaseModel):
